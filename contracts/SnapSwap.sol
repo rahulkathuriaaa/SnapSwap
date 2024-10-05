@@ -20,7 +20,7 @@ contract SnapSwap {
 
     mapping(address => Person) public investors;
 
-    // onboard investors
+    // onboard investors for initialising them.
     function initializeInvestors(
         address _id,
         string[] memory _tokens,
@@ -36,7 +36,8 @@ contract SnapSwap {
         }
     }
 
-    // make persons token portfolio
+    // make persons token portfolio which will be used to create personalised protfolios as per users 
+    // preferences.
 
     function tokenSwap(
         address _id,
@@ -55,7 +56,7 @@ contract SnapSwap {
             _convertedPrice
         );
 
-        // cut money
+        // give an error if assest of particular tokenId is less than the current price.
         require(
             indTokenPortfolio[_id][_fromTokenId] >= _currPrice,
             "No proper balance"
@@ -70,7 +71,7 @@ contract SnapSwap {
             _convertedPrice;
     }
 
-    // mutual fund swap
+    // mutual fund swap similar to tradional finanical institutuion.
     struct MF {
         uint256 flag;
         string name;
@@ -78,7 +79,7 @@ contract SnapSwap {
         uint256 investement;
     }
 
-    // get entire MF portfolio
+    // mapping of address of a person/investor with their corresponding MF portfolio. 
 
     mapping(address => mapping(uint256 => MF)) public mfPortfolio;
 
@@ -102,7 +103,7 @@ contract SnapSwap {
     // view functions
 
     // return multiple tokens of a user with swap data
-    function allSwapsOfUser(address _id)
+    function AllSwaps(address _id)
         public
         view
         returns (TokenPortfolio[] memory)
@@ -111,8 +112,7 @@ contract SnapSwap {
     }
 
     // get money present in wallet in indivisual token
-
-    function countOfIndivisualToken(address _id, string memory _token)
+    function EachTokenAssest(address _id, string memory _token)
         public
         view
         returns (uint256)
@@ -121,13 +121,11 @@ contract SnapSwap {
     }
 
     // all data present with a user
-
-    function allUserData(address _id) public view returns (Person memory) {
+    function AllData(address _id) public view returns (Person memory) {
         return investors[_id];
     }
 
     // get entire MF portfolio
-
     function entireMFPortfolio(address _id, uint256 _flag)
         public
         view
