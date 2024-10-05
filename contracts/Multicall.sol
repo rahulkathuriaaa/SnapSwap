@@ -16,6 +16,7 @@ contract Multicall3{
     /// @param calls An array of Call structs
     /// @return blockNumber The block number where the calls were executed
     /// @return returnData An array of bytes containing the responses
+    /// This function is used to aggregate all the changesets used in calls
     function aggregate(Call[] calldata calls) public payable returns (uint256 blockNumber, bytes[] memory returnData) {
         blockNumber = block.number;
         uint256 length = calls.length;
@@ -35,6 +36,7 @@ contract Multicall3{
     /// @param requireSuccess If true, require all calls to succeed
     /// @param calls An array of Call structs
     /// @return returnData An array of Result structs
+    /// This api is wrapper over Aggregate api which tries to do the task.
     function tryAggregate(bool requireSuccess, Call[] calldata calls) public payable returns (Result[] memory returnData) {
         uint256 length = calls.length;
         returnData = new Result[](length);
@@ -70,7 +72,7 @@ contract Multicall3{
         (blockNumber, blockHash, returnData) = tryBlockAndAggregate(true, calls);
     }
 
-    
+    /// @notice gives block hash of given block number.
     function getBlockHash(uint256 blockNumber) public view returns (bytes32 blockHash) {
         blockHash = blockhash(blockNumber);
     }
@@ -111,9 +113,6 @@ contract Multicall3{
             blockHash = blockhash(block.number - 1);
         }
     }
-
-    
-    
 
     /// @notice Returns the chain id
     function getChainId() public view returns (uint256 chainid) {
