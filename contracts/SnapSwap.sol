@@ -168,6 +168,11 @@ contract SnapSwap {
     }
 
     // get money present in wallet in indivisual token
+    /**
+     * @dev Returns all data associated with a specific investor.
+     * @param _id The address of the investor.
+     * @return A Person struct representing the investor's data.
+     */
     function EachTokenAssest(
         address _id,
         string memory _token
@@ -176,6 +181,12 @@ contract SnapSwap {
     }
 
     // all data present with a user
+    /**
+     * @dev Returns the mutual fund portfolio for a specific investor.
+     * @param _id The address of the investor.
+     * @param _flag The unique identifier for the mutual fund.
+     * @return An MF struct representing the investor's mutual fund portfolio.
+     */
     function AllData(address _id) public view returns (Person memory) {
         return investors[_id];
     }
